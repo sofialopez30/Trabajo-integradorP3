@@ -1,5 +1,5 @@
 import React from "react";
-// import { Link } from 'react-router-dom'
+import { Link } from 'react-router-dom'
 import './styles.css'
 
 let navegacion = [
@@ -19,7 +19,7 @@ let navegacion = [
   export default function Header() {
     return (
       <nav>
-         {/* <img className="foto-logo" src='./img/SoundWave.png' alt="logo"></img>
+         <img className="foto-logo" src='./img/SoundWave.png' alt="logo"></img>
           <ul className="main-nav">
               {
                 navegacion.map((elm) => <li>
@@ -33,7 +33,7 @@ let navegacion = [
               <li>
                   Nombre usuario 
               </li>
-          </ul>  */}
+          </ul>  
       </nav>
     )
   }

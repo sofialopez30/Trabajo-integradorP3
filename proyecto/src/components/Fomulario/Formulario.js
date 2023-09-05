@@ -12,13 +12,12 @@ class Search extends Component {
     evento.preventDefault()
     }
 
-    guardarValor(evento){
+    controlarCambios(evento){
         this.setState(
         {
             search: evento.target.value
-        },
-        () => this.props.guardarValor(this.state.search)
-        )
+        }
+        );
     }
 
 
@@ -28,10 +27,10 @@ class Search extends Component {
         <input
           type="text"
           placeholder="Buscar..."
-          value={this.state.search}
-          onChange={(evento)=> this.guardarValor(evento)} 
+          onChange={(evento)=> this.controlarCambios(evento)} value={this.state.search}
         />
-        <button
+        <input type= 'submit' value= 'Submit' />
+        {/* <button
           type="button"
           onClick={() => {
             // Aquí puedes realizar la acción de búsqueda con this.state.searchTerm
@@ -39,7 +38,7 @@ class Search extends Component {
           }}
         >
           Buscar
-        </button>
+        </button> */}
       </form>
     );
   }
