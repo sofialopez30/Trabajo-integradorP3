@@ -1,7 +1,7 @@
 import React from 'react';
 import { Route, Switch } from 'react-router-dom';
-import Home from './components/Home/Home';
-import NotFound from "./components/NotFound/NotFound"
+import Home from './screens/Home/index';
+import NotFound from "./screens/NotFound/index"
 import CancionesverMas from './components/CancionesverMas/CancionesverMas';
 
 function App() {
@@ -9,9 +9,9 @@ function App() {
     <>
     <Switch>
         <Route path="/" exact={true} component={Home}/>
-        <Route path="/songs/:id" component = {CancionesverMas}/>
-        {/* <Route path="/albumes/:id" component = {DetalleAlbum}/>  */}
-        <Route path="" component = {NotFound}/>
+        {/* <Route path="/songs/:id" component = {Detalle}/> */}
+        {/* <Route path="/albumes/:id" component = {Favorito}/>  */}
+        <Route component = {NotFound}/>
     </Switch>
     </>
   )

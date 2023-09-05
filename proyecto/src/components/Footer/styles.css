@@ -1,8 +1,33 @@
-footer {
-    background-color: #dedede;
-    text-align: center;
-    padding: 40px 0;
-    color: #666;
-    position: absolute;
+footer{
+    margin-top: 15%;
+    background: linear-gradient(to bottom, #000000, #3e2dd281);
+    height: 40vh;
     width: 100%;
 }
+.contenedor{
+    padding-top: 80px;
+    padding-bottom: 75px;
+}
+.nombres{
+    
+        display: flex;
+        flex-wrap:wrap;
+        align-items: center;
+        justify-content: center;
+        flex-direction:row;
+        padding-bottom: 0px;
+        padding-top: 30px;
+        font-family: 'Unbounded', sans-serif;
+  
+}
+.copy{
+    display: flex;
+    flex-wrap:wrap;
+    align-items: center;
+    justify-content: center;
+    flex-direction:row;
+    padding-bottom: 0px;
+    padding-top: 30px;
+    font-family: 'Unbounded', sans-serif;
+}
+

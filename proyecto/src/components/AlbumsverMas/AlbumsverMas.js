@@ -28,7 +28,7 @@ verMas(){
 render(){
     return(
        <>
-       {this.props.albums.position <= 5 ? <article>
+       {this.props.albums.position <= 8 ? <article>
         <img src={this.props.albums.cover} alt={this.props.albums.title} />
         <h2>{this.props.albums.title}</h2>
         <p>Artista: {this.props.albums.artist.name}</p>

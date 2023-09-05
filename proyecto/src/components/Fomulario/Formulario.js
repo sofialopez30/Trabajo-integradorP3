@@ -1,4 +1,5 @@
 import React, { Component } from "react";
+import './styles.css'
 
 class Search extends Component {
   constructor(props) {
@@ -8,8 +9,8 @@ class Search extends Component {
     };
   }
 
-  evitarSubmit(evento){
-    evento.preventDefault()
+    evitarSubmit(evento){
+        evento.preventDefault()
     }
 
     controlarCambios(evento){
@@ -23,23 +24,27 @@ class Search extends Component {
 
   render() {
     return (
-      <form onSubmit={(evento)=> this.evitarSubmit(evento)} >
-        <input
-          type="text"
-          placeholder="Buscar..."
-          onChange={(evento)=> this.controlarCambios(evento)} value={this.state.search}
-        />
-        <input type= 'submit' value= 'Submit' />
-        {/* <button
-          type="button"
-          onClick={() => {
-            // Aquí puedes realizar la acción de búsqueda con this.state.searchTerm
-            alert("Realizar búsqueda con: " + this.state.search);
-          }}
-        >
-          Buscar
-        </button> */}
-      </form>
+        <div className="search-container">
+            <form className="busqueda" onSubmit={(evento)=> this.evitarSubmit(evento)} >
+                    <input className="search-input"
+                        type="text"
+                        placeholder="Buscar..."
+                        onChange={(evento)=> this.controlarCambios(evento)} value={this.state.search}
+                    />
+                 {/* <input type= 'submit' value= 'Submit' /> */}
+                    <button className="search-button"
+                        type="button"
+                        onClick={() => {
+                // Aquí puedes realizar la acción de búsqueda con this.state.searchTerm
+                         alert("Realizar búsqueda con: " + this.state.search);
+                        }}
+                     >
+                         Buscar
+                         </button> 
+            </form>
+
+        </div>
+
     );
   }
 

@@ -3,8 +3,11 @@ import './styles.css'
 function Footer(props){
     return(
         <footer>
-            <h3>Lopez Moreno, Sofia & Miranda, Santiago</h3>
-            <p>Copyright © Dashboard 2022</p>
+            <div className="contenedor">
+                <h3 className="nombres">Lopez Moreno, Sofia & Miranda, Santiago</h3>
+                <h4 className="copy">Copyright © Dashboard 2022</h4>
+            </div>
+            
         </footer>
 
         

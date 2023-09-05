@@ -2,6 +2,7 @@ import React from "react";
 import { Link } from 'react-router-dom'
 import './styles.css'
 
+
 let navegacion = [
     {
       nombre:'Home',
@@ -19,20 +20,24 @@ let navegacion = [
   export default function Header() {
     return (
       <nav>
-         <img className="foto-logo" src='./img/SoundWave.png' alt="logo"></img>
           <ul className="main-nav">
               {
-                navegacion.map((elm) => <li>
+                navegacion.map((elm) => <li className="list">
                   <Link to={elm.ruta}>
                     {elm.nombre}
                   </Link>
                 </li> )
               }
           </ul> 
+          <img className="foto-logo" src='./img/Logo.png' alt="logo"></img>
+          <article className="header">
+              <img  className= 'header' src='./img/Header.png'></img>  
+          </article>
+          
            <ul className="user">
-              <li>
+              {/* <li>
                   Nombre usuario 
-              </li>
+              </li> */}
           </ul>  
       </nav>
     )
