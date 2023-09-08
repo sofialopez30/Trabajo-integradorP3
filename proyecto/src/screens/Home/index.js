@@ -1,44 +1,13 @@
 import React, { Component } from 'react'
-import {options} from '../../utils/constants'
+
 import './styles.css'
-import CancionesverMas from '../../components/CancionesverMas/CancionesverMas';
-import CancionesPopulares from '../../components/CancionesPopulares/CancionesPopulares';
-import CancionesNuevas from '../../components/CancionesNuevas/CancionesNuevas';
-import Fomulario from '../../components/Fomulario/Formulario'
+
 import Header from '../../components/Header/Header'
+import Fomulario from '../../components/Fomulario/Formulario'
+import Tarjeta from '../../components/Tarjeta/Tarjeta'
 import Footer from '../../components/Footer/Footer'
-import AlbumsverMas from '../../components/AlbumsverMas/AlbumsverMas';
-
-
-// class index extends Component {
-//   render() {
-//     return (
-//         <>
-//         <section>
-//             <Header/>
-//             <Fomulario/>
-//         </section>
-//          <div>
-//         <CancionesPopulares/>
-//         <CancionesNuevas/>
-        
-        
-//       </div>
-//       <section>
-//         <Footer/>
-//       </section>
-//         </>
-     
-//     )
-//   }
-// }
-// export default index
-
-
-
-
 class Home extends Component {
-    constructor(){
+    constructor() {
         super();
         this.state = {
             songs: [],
@@ -46,66 +15,66 @@ class Home extends Component {
         };
     }
 
-componentDidMount(){
-    fetch("https://thingproxy.freeboard.io/fetch/https://api.deezer.com/chart/0/tracks?index=0&limit=100")
-    .then((response)=> response.json())
-    .then((datos)=> 
-    this.setState({
-        songs: datos.data
-    }))
-    .catch(error => console.log(error));
-     fetch("https://thingproxy.freeboard.io/fetch/https://api.deezer.com/chart/0/albums?index=0&limit=100")
-     .then((response)=> response.json())
-     .then((datos)=> 
-     this.setState({
-         albums: datos.data
-     }))
-     .catch(error => console.log(error));
-}
+    componentDidMount() {
+        fetch("https://thingproxy.freeboard.io/fetch/https://api.deezer.com/chart/0/tracks?index=0&limit=5")
+            .then((response) => response.json())
+            .then((datos) =>
+                this.setState({
+                    songs: datos.data
+                }))
+            .catch(error => console.log(error));
 
-// filtrarAlbumes(textoInput) {
-//     let albumesFiltrados = this.state.albums.filter((album) => {
-//       return album.title.toLowerCase().includes(textoInput.toLowerCase());
-//     });
-//     this.setState({
-//       albums: albumesFiltrados
-//     });
-//   }
+        fetch("https://thingproxy.freeboard.io/fetch/https://api.deezer.com/chart/0/albums?index=0&limit=5")
+            .then((response) => response.json())
+            .then((datos) =>
+                this.setState({
+                    albums: datos.data
+                }))
+            .catch(error => console.log(error));
+    }
 
-render(){
-    console.log(this.state.songs)
-    return(
-        <> 
-        <Header/>
-        <Fomulario/>
-        <h2>Canciones del Momento </h2>
-        {
-            this.state.songs.length == 0? 
-            <h3>Loading ... </h3> : (<section>
-                {this.state.songs.map((songs, i ) => (
-                    <CancionesverMas key= {songs.id+i} songs={songs} />
+    render() {
+        return (
+            <>
+                <Header />
+                <Fomulario />
 
-            
-          ))}
-            </section>)
-        }
-        <h2>Albums Mas escuchados</h2>
-        {
-            this.state.albums.length == 0? 
-            <h3>Loading ... </h3> : (<section>
-                {this.state.albums.map((albums, i ) => (
-                    <AlbumsverMas key= {albums.id+i} albums={albums} />
+                <h2 className='titulo'>Canciones del Momento </h2>
+                <div className='cajas'>
+                    {
+                        this.state.songs.length === 0 ?
+                            <h3>Loading ... </h3> : (<section>
+                                {this.state.songs.map((song, i) => (
+                                    <Tarjeta  key={song.id + i} 
+                                    id={song.id} 
+                                    imagen={song.album.cover} 
+                                    titulo={song.title_short} 
+                                    artista={song.artist.name} 
+                                    duration={song.duration} 
+                                    rank={song.rank} 
+                                    explicit_lyrics={song.explicit_lyrics.toString()}
+                                    tipo= 'cancion' />
+                                ))}
+                            </section>)
+                    }
+                </div>
 
-            
-          ))}
-            </section>)
-        }
+                <h2 className='titulo' >Albums Mas escuchados</h2>
+                <div className='caja'>
+                    {
+                        this.state.albums.length === 0 ?
+                            <h3>Loading ... </h3> : (<section>
+                                {this.state.albums.map((album, i) => (
+                                    <Tarjeta key={album.id + i} id={album.id} imagen={album.cover} titulo={album.title} artista={album.artist.name} explicit_lyrics={album.explicit_lyrics.toString()} tipo= 'album' />
+                                ))}
+                            </section>)
+                    }
+                </div>
 
-            <Footer/>
-
-      </>
-    )
-}
+                <Footer />
+            </>
+        )
+    }
 
 }
 

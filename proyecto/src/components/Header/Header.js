@@ -13,8 +13,13 @@ let navegacion = [
       ruta:'/favoritos',
     },
     {
-      nombre:'Ver todas',
-      ruta:'/vertodas',
+      nombre:'Todas Canciones',
+      ruta:'/vercanciones',
+    },
+    {
+        nombre: 'Todos Albums',
+        ruta:'/veralbums'
+
     }
   ]
   export default function Header() {
@@ -22,7 +27,7 @@ let navegacion = [
       <nav>
           <ul className="main-nav">
               {
-                navegacion.map((elm) => <li className="list">
+                navegacion.map((elm, i) => <li className="list" key={i}>
                   <Link to={elm.ruta}>
                     {elm.nombre}
                   </Link>
@@ -31,7 +36,7 @@ let navegacion = [
           </ul> 
           <img className="foto-logo" src='./img/Logo.png' alt="logo"></img>
           <article className="header">
-              <img  className= 'header' src='./img/Header.png'></img>  
+              <img className= 'header' src='./img/Header.png' alt="Logo de la web"></img>  
           </article>
           
            <ul className="user">
