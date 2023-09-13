@@ -6,27 +6,25 @@ export default function CardContainer(props) {
       <div>
         {props.album
           ? props.value.map((album, i) => (
-              <div className='tarjeta-container' >
+              <div className='tarjeta-container' key={album.id + i}>
                 <div className='white-box'>
                   <Tarjeta
                     className='cancion'
-                    key={album.id + i}
                     id={album.id}
                     imagen={album.cover}
                     titulo={album.title}
-                    artista={album.artist.name}
-                    explicit_lyrics={album.explicit_lyrics.toString()}
+                    // artista={album.artist.name}
+                    // explicit_lyrics={album.explicit_lyrics.toString()}
                     tipo='album'
                   />
                 </div>
               </div>
             ))
           : props.value.map((song, i) => (
-              <div className='tarjeta-container' >
+              <div className='tarjeta-container' key={song.id + i}>
                 <div className='white-box'>
                   <Tarjeta
                     className='cancion'
-                    key={song.id + i}
                     id={song.id}
                     imagen={song.album.cover}
                     titulo={song.title}
@@ -41,4 +39,4 @@ export default function CardContainer(props) {
             ))}
       </div>
     );
-}
+  }

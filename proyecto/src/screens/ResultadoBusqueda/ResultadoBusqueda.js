@@ -46,7 +46,9 @@ class ResultadosBusqueda extends Component {
                             artista={resultado.artist.name} 
                             duration={resultado.duration} 
                             rank={resultado.rank} 
-                            explicit_lyrics={resultado.explicit_lyrics.toString()} />
+                            explicit_lyrics={resultado.explicit_lyrics.toString()} 
+                            // agregar si es tipo cancion o album
+                            />
                             )
                         }
                         </ul> :

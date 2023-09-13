@@ -7,8 +7,8 @@ class Favoritos extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      favoritosCanciones: [],
-      favoritosAlbums: [],
+      favoritosArrayCancion: [],
+      favoritosArrayAlbum: [],
       albums: [],
       songs: [],
       esFavorito: false
@@ -19,45 +19,47 @@ class Favoritos extends Component {
     // aca estoy obteniendo los favoritos almacenados en el almacenamiento local
     let favoritosStringCancion = localStorage.getItem("cancion")
     let favoritosArrayCancion = JSON.parse(favoritosStringCancion)
-    
+
     let favoritosStringAlbum = localStorage.getItem("album")
     let favoritosArrayAlbum = JSON.parse(favoritosStringAlbum)
 
     if (favoritosArrayCancion === null) {
-        favoritosArrayCancion = []
+      favoritosArrayCancion = []
     }
 
     if (favoritosArrayAlbum === null) {
-        favoritosArrayAlbum = []
+      favoritosArrayAlbum = []
     }
 
     Promise.all(
-      favoritosArrayCancion.map((id) => 
+      favoritosArrayCancion.map((id) =>
         fetch("https://thingproxy.freeboard.io/fetch/https://api.deezer.com/chart/0/tracks/" + id)
-        .then((response) => response.json())
+          .then((response) => response.json())
       )
     ).then((datos) => {
       this.setState({
-        favoritosArrayCancion: datos
+        favoritosArrayCancion: datos,
+        songs: favoritosArrayCancion
       })
     })
-    .catch(error => console.log(error));
+      .catch(error => console.log(error));
 
     Promise.all(
-      favoritosArrayAlbum.map((id) => 
-      fetch("https://thingproxy.freeboard.io/fetch/https://api.deezer.com/chart/0/album/" + id)
-        .then((response) => response.json())
+      favoritosArrayAlbum.map((id) =>
+        fetch("https://thingproxy.freeboard.io/fetch/https://api.deezer.com/chart/0/album/" + id)
+          .then((response) => response.json())
       )
     ).then((datos) => {
       this.setState({
-        favoritosArrayAlbum: datos
+        favoritosArrayAlbum: datos,
+        albums: favoritosArrayAlbum
       })
     })
-    .catch(error => console.log(error));
+      .catch(error => console.log(error));
 
-    
+
   }
-       
+
 
   render() {
     return (
@@ -68,30 +70,30 @@ class Favoritos extends Component {
           <section>
             <h3>Canciones Favoritas</h3>
             <div className='tarjetas-container'>
-              {this.state.songs.length === 0 ? (
-                <h3>Loading ... </h3>
-              ) : (
+              {/* {this.state.songs.length === 0 ? (
+                <h3>No tienes canciones favoritas</h3>
+              ) : ( */}
                 <div className='tarjetas-scroll'>
                   <CardContainer value={this.state.songs} album={false} />
                 </div>
-              )}
+              {/* )} */}
             </div>
           </section>
 
           <section>
             <h3>Albumes Favoritos</h3>
             <div>
-              {this.state.albums.length === 0 ? (
-                <h3>Loading ... </h3>
-              ) : (
+              {/* {this.state.albums.length === 0 ? (
+                <h3>No tienes álbumes favoritos</h3>
+              ) : ( */}
                 <div className='tarjetas-scroll'>
                   <CardContainer value={this.state.albums} album={true} />
                 </div>
-              )}
+              {/* )} */}
             </div>
           </section>
         </div>
-        <Footer/>
+        <Footer />
       </>
     );
   }

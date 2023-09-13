@@ -8,7 +8,8 @@ class DetalleAlbum extends Component {
         super(props);
         this.state = {
             album: "",
-            favoritosAlbumes: []
+            favoritosAlbumes: [],
+            esFavorito: false
         }
     }
 
@@ -21,7 +22,7 @@ class DetalleAlbum extends Component {
                 }))
             .catch(error => console.log(error));
 
-        let favoritosStringAlbum = localStorage.getItem("favoritos-album")
+        let favoritosStringAlbum = localStorage.getItem(this.props.tipo)
         let favoritosArrayAlbum = JSON.parse(favoritosStringAlbum)
 
         if (favoritosArrayAlbum === null) {
@@ -32,50 +33,50 @@ class DetalleAlbum extends Component {
             })
         }
     }
+    agregarFavoritos(id) {
 
-    agregarFavoritos(id, tipo) {
-        if (!this.state.favoritosAlbumes.includes(id)) {
-            let favoritosString = localStorage.getItem("favoritos-" + tipo)
-            let favoritosArray = JSON.parse(favoritosString)
-
-            if (favoritosArray === null) {
-                favoritosArray = []
-            }
-
-            favoritosArray.push(id)
-
-            this.setState({
-                favoritosAlbumes: favoritosArray
-            })
-
+        let favoritosString = localStorage.getItem(this.props.tipo)
+        let favoritosArray = JSON.parse(favoritosString)
+        // if (!favoritosArray.includes(id)) {
+        if (favoritosArray === null) {
+            favoritosArray = [id]
             let favoritosStringNuevo = JSON.stringify(favoritosArray)
-            localStorage.setItem("favoritos-" + tipo, favoritosStringNuevo)
-
-            console.log(favoritosStringNuevo)
+            localStorage.setItem(this.props.tipo, favoritosStringNuevo)
+        } else {
+            favoritosArray.push(id)
+            let favoritosStringNuevo = JSON.stringify(favoritosArray)
+            localStorage.setItem(this.props.tipo, favoritosStringNuevo)
         }
+        this.setState({
+            esFavorito: true
+        })
     }
 
-    quitarFavoritos(id, tipo) {
-        if (this.state.favoritosAlbumes.includes(id)) {
-            let favoritosString = localStorage.getItem("favoritos-" + tipo)
+    quitarFavoritos(id) {
+
+        // if (this.state.favoritos.includes(id)) {
+            let favoritosString = localStorage.getItem(this.props.tipo)
             let favoritosArray = JSON.parse(favoritosString)
 
             if (favoritosArray === null) {
                 favoritosArray = []
+                let favoritosStringNuevo = JSON.stringify(favoritosArray)
+                localStorage.setItem(this.props.tipo, favoritosStringNuevo)
+            } else {
+                let favsFiltrado = favoritosArray.filter((elm) => id !== elm)
+                let favoritosStringNuevo = JSON.stringify(favsFiltrado)
+                localStorage.setItem(this.props.tipo, favoritosStringNuevo)
             }
 
-            let index = favoritosArray.indexOf(id)
-            favoritosArray.splice(index, 1)
-
+            // let index = favoritosArray.indexOf(id)
+            // favoritosArray.splice(index, 1)
+            
             this.setState({
-                favoritosAlbumes: favoritosArray
+                esFavorito: false
             })
+    
+        // }
 
-            let favoritosStringNuevo = JSON.stringify(favoritosArray)
-            localStorage.setItem("favoritos-" + tipo, favoritosStringNuevo)
-
-            console.log(favoritosStringNuevo)
-        }
     }
 
     render() {
