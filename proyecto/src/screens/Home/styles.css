@@ -1,9 +1,58 @@
-.titulo {
-    font-family: 'Unbounded', sans-serif;
-    font-size: 30px;
-    margin-bottom: 40px;
-    margin-top: 40px;
+* {
+    padding: 0;
+    box-sizing: border-box;
 }
+.inicio {
+    /* Estilo para el contenedor principal, si es necesario */
+    margin-bottom: 20px; /* Separación entre las cajas y la scrollbar */
+  }
+.titulo{
+    font-family: 'Unbounded', sans-serif;
+    font-size: 26px;
+    margin:40px;
+    margin-top: 60px;
+}
+.tarjetas-container {
+    display: flex; /* Flexbox para organizar las tarjetas en una fila */
+    overflow-x: auto; /* Agregar desplazamiento horizontal */
+    white-space: nowrap; /* Evitar el salto de línea */
+    margin-top: 30px;
+    margin-bottom: 50px;
+    margin-left: 40px;
+    margin-bottom: -20px;
+  }
+  
+  .tarjeta-container {
+    display: inline-block; /* Hacer que los elementos sean en línea y se coloquen uno al lado del otro */
+    margin-right: 30px; /* Espacio entre cada elemento de la tarjeta */
+    transition: transform 0.4s, box-shadow 0.5s;
+    
+  }
+  .tarjeta-container:hover {
+    transform: scale(1.05); /* Aumentar el tamaño en un 5% cuando se pasa el mouse */
+    box-shadow: 20px 30px 30px rgba(156, 10, 234, 0.905); /* Agregar una sombra cuando se pasa el mouse */
+  }
+  
+  .white-box {
+    background-color: rgb(31, 32, 48); /* Fondo blanco para cada elemento de la tarjeta */
+  border-radius: 10px; /* Bordes redondeados */
+  padding: 10px; 
+  color: black;
+  }
+  
+  .tarjetas-container::-webkit-scrollbar {
+    width: 2px; /* Ancho del scrollbar */
+    margin-top: 20px;
+  }
+  .tarjetas-container::-webkit-scrollbar-thumb {
+    background: rgba(23, 35, 144, 0.782); /* Color del scrollbar */
+    border-radius: 4px; /* Borde redondeado del scrollbar */
+    width: 10px;
+  }
+  
+  .tarjetas-container::-webkit-scrollbar-thumb:hover {
+    background: rgba(28, 50, 122, 0.4); /* Color del scrollbar cuando se pasa el mouse por encima */
+  }
 
 
 

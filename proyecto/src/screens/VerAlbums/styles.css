@@ -1,0 +1,16 @@
+.loading-container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100px; /* Ajusta la altura según tus necesidades */
+    margin-bottom: 50px;
+  }
+  
+  /* Estilos para el contenedor de tarjetas */
+  .card-container {
+    display: flex;
+    flex-direction: column; /* Los elementos estarán uno debajo del otro */
+    align-items: center; /* Centrar elementos horizontalmente */
+    text-align: center; /* Centrar el texto horizontalmente */
+    margin-bottom: 50px
+  }

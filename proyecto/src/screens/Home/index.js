@@ -4,8 +4,9 @@ import './styles.css'
 
 import Header from '../../components/Header/Header'
 import Fomulario from '../../components/Fomulario/Formulario'
-import Tarjeta from '../../components/Tarjeta/Tarjeta'
+// import Tarjeta from '../../components/Tarjeta/Tarjeta'
 import Footer from '../../components/Footer/Footer'
+import CardContainer from '../../components/CardContainer/CardContainer'
 class Home extends Component {
     constructor() {
         super();
@@ -38,38 +39,35 @@ class Home extends Component {
             <>
                 <Header />
                 <Fomulario />
-
                 <h2 className='titulo'>Canciones del Momento </h2>
-                <div className='cajas'>
-                    {
-                        this.state.songs.length === 0 ?
-                            <h3>Loading ... </h3> : (<section>
-                                {this.state.songs.map((song, i) => (
-                                    <Tarjeta  key={song.id + i} 
-                                    id={song.id} 
-                                    imagen={song.album.cover} 
-                                    titulo={song.title_short} 
-                                    artista={song.artist.name} 
-                                    duration={song.duration} 
-                                    rank={song.rank} 
-                                    explicit_lyrics={song.explicit_lyrics.toString()}
-                                    tipo= 'cancion' />
-                                ))}
-                            </section>)
-                    }
-                </div>
+                <section className='inicio'>
+                    <div className='tarjetas-container'>
+                        {this.state.songs.length === 0 ? (
+                            <h3>Loading ... </h3>
+                        ) : (
+                            <div className='tarjetas-scroll'>
+                                <CardContainer value={this.state.songs} album={false}/>
+                            </div>
+                        )}
+                    </div>
+                </section>
+
 
                 <h2 className='titulo' >Albums Mas escuchados</h2>
-                <div className='caja'>
-                    {
-                        this.state.albums.length === 0 ?
-                            <h3>Loading ... </h3> : (<section>
-                                {this.state.albums.map((album, i) => (
-                                    <Tarjeta key={album.id + i} id={album.id} imagen={album.cover} titulo={album.title} artista={album.artist.name} explicit_lyrics={album.explicit_lyrics.toString()} tipo= 'album' />
-                                ))}
-                            </section>)
-                    }
-                </div>
+                <section className='inicio'>
+                    <div className='tarjetas-container'>
+                        {
+                            this.state.albums.length === 0 ?
+                                <h3>Loading ... </h3> : (
+                                    <div className='tarjetas-scroll'>
+                                        <CardContainer value={this.state.albums} album={true}/>
+                                    </div>
+                                )
+                        }
+
+                    </div>
+                </section>
+
 
                 <Footer />
             </>

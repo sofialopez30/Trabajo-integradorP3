@@ -1,49 +1,49 @@
-import React from "react";
-import { Link } from 'react-router-dom'
-import './styles.css'
 
+// import { Link } from 'react-router-dom'
+// import './styles.css'
+// import React, { Component } from 'react'
 
-let navegacion = [
-    {
-      nombre:'Home',
-      ruta:'/',
-    },
-    {
-      nombre:'Favoritos',
-      ruta:'/favoritos',
-    },
-    {
-      nombre:'Todas Canciones',
-      ruta:'/vercanciones',
-    },
-    {
-        nombre: 'Todos Albums',
-        ruta:'/veralbums'
+//  export default class Header extends Component {
+//   constructor(props){
+//     super(props)
+//     this.state = {
 
-    }
-  ]
-  export default function Header() {
-    return (
-      <nav>
-          <ul className="main-nav">
-              {
-                navegacion.map((elm, i) => <li className="list" key={i}>
-                  <Link to={elm.ruta}>
-                    {elm.nombre}
-                  </Link>
-                </li> )
-              }
-          </ul> 
-          <img className="foto-logo" src='./img/Logo.png' alt="logo"></img>
-          <article className="header">
-              <img className= 'header' src='./img/Header.png' alt="Logo de la web"></img>  
-          </article>
+//     }
+//   }
+//    render() {
+//      return (
+//        <nav className="nav">
+//          <ul className="main-nav">
+//            <li className="nav-item">
+//              <Link to="/" className="nav-link" exact="true">
+//                Home
+//              </Link>
+//            </li>
+//            <li className="nav-item">
+//              <Link to="/favoritos" className="nav-link">
+//                Favoritos
+//              </Link>
+//            </li>
+//            <li className="nav-item">
+//              <Link to="/vercanciones" className="nav-link">
+//                Todas Canciones
+//              </Link>
+//            </li>
+//            <li className="nav-item">
+//              <Link to="/veralbums" className="nav-link">
+//                Todos Albums
+//              </Link>
+//            </li>
+//          </ul>
+
+//          <img className="foto-logo" src='/img/Logo.png' alt="logo"></img>
+//           <article className="header">
+//               <img className= 'header' src='/img/Header.png' alt="Logo de la web"></img>  
+//           </article>
+
           
-           <ul className="user">
-              {/* <li>
-                  Nombre usuario 
-              </li> */}
-          </ul>  
-      </nav>
-    )
-  }
+//        </nav>
+//      )
+//    }
+//  }
+ 

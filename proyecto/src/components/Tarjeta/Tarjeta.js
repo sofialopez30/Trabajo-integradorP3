@@ -10,12 +10,12 @@ class Tarjeta extends Component {
         this.state = {
             verMas: false,
             texto: "Ver más",
-            favoritos: []
+            esFavorito: false
         };
     }
 
     componentDidMount() {
-        let favoritosString = localStorage.getItem("favoritos")
+        let favoritosString = localStorage.getItem(this.props.tipo)
         let favoritosArray = JSON.parse(favoritosString)
 
         if (favoritosArray === null) {
@@ -43,88 +43,92 @@ class Tarjeta extends Component {
 
     agregarFavoritos(id) {
 
-        if (!this.state.favoritos.includes(id)) {
-            let favoritosString = localStorage.getItem("favoritos")
-            let favoritosArray = JSON.parse(favoritosString)
-
-            if (favoritosArray === null) {
-                favoritosArray = []
-            }
-
-            favoritosArray.push(id)
-
-            this.setState({
-                favoritos: favoritosArray
-            })
-
+        let favoritosString = localStorage.getItem(this.props.tipo)
+        let favoritosArray = JSON.parse(favoritosString)
+        // if (!favoritosArray.includes(id)) {
+        if (favoritosArray === null) {
+            favoritosArray = [id]
             let favoritosStringNuevo = JSON.stringify(favoritosArray)
-            localStorage.setItem("favoritos", favoritosStringNuevo)
-
-            console.log(favoritosStringNuevo)
+            localStorage.setItem(this.props.tipo, favoritosStringNuevo)
+        } else {
+            favoritosArray.push(id)
+            let favoritosStringNuevo = JSON.stringify(favoritosArray)
+            localStorage.setItem(this.props.tipo, favoritosStringNuevo)
         }
-
+        this.setState({
+            esFavorito: true
+        })
     }
 
     quitarFavoritos(id) {
 
-        if (this.state.favoritos.includes(id)) {
-            let favoritosString = localStorage.getItem("favoritos")
+        // if (this.state.favoritos.includes(id)) {
+            let favoritosString = localStorage.getItem(this.props.tipo)
             let favoritosArray = JSON.parse(favoritosString)
 
             if (favoritosArray === null) {
                 favoritosArray = []
+                let favoritosStringNuevo = JSON.stringify(favoritosArray)
+                localStorage.setItem(this.props.tipo, favoritosStringNuevo)
+            } else {
+                let favsFiltrado = favoritosArray.filter((elm) => id !== elm)
+                let favoritosStringNuevo = JSON.stringify(favsFiltrado)
+                localStorage.setItem(this.props.tipo, favoritosStringNuevo)
             }
 
-            let index = favoritosArray.indexOf(id)
-            favoritosArray.splice(index, 1)
-
+            // let index = favoritosArray.indexOf(id)
+            // favoritosArray.splice(index, 1)
+            
             this.setState({
-                favoritos: favoritosArray
+                esFavorito: false
             })
-
-            let favoritosStringNuevo = JSON.stringify(favoritosArray)
-            localStorage.setItem("favoritos", favoritosStringNuevo)
-
-            console.log(favoritosStringNuevo)
-        }
+    
+        // }
 
     }
 
     render() {
         return (
-            <article className="">
-                <img src={this.props.imagen} alt={"Foto album " + this.props.titulo} />
+            <article className="article">
+                <img
+                    className="article-image"
+                    src={this.props.imagen}
+                    alt={"Foto album " + this.props.titulo}
+                />
 
-                <h2>{this.props.titulo}</h2>
-                <p>Artista: {this.props.artista}</p>
+                <h2 className="article-title">{this.props.titulo}</h2>
+                <p className="article-artist">Artista: {this.props.artista}</p>
 
+                {this.state.verMas ? (
+                    <>
+                        <p className="article-description">Descripción:</p>
+                        {this.props.duration !== null ? (
+                            <>
+                                <p>Duración: {this.props.duration}</p>
+                                <p>Ranking: {this.props.ranking}</p>
+                                <p>Explicit lyrics: {this.props.explicit_lyrics}</p>
+                            </>
+                        ) : (
+                            <p>Explicit lyrics: {this.props.explicit_lyrics}</p>
+                        )}
+                    </>
+                ) : null}
 
-                {
-                    this.state.verMas ?
-                        <>
-                            <p>Descripción:</p>
-                            {
-                                this.props.duration !== null ?
-                                    <>
-                                        <p>Duración: {this.props.duration}</p>
-                                        <p>Ranking: {this.props.ranking}</p>
-                                        <p>Explicit lyrics: {this.props.explicit_lyrics}</p>
-                                    </> :
-                                    <p>Explicit lyrics: {this.props.explicit_lyrics}</p>
-                            }
-                        </> :
-                        null
-                }
-
-                <button onClick={() => this.verMas()}>{this.state.texto}</button>
+                <button onClick={() => this.verMas()} className="article-button">
+                    {this.state.texto}
+                </button>
                 <Link to={`/detalle/${this.props.tipo}/${this.props.id}`}>
-                    <button>Ir a detalle</button>
+                    <button className="article-button">Ir a detalle</button>
                 </Link>
-                {
-                    this.state.favoritos.includes(this.props.id) ?
-                        <button onClick={() => this.quitarFavoritos(this.props.id)}>Quitar de favoritos</button> :
-                        <button onClick={() => this.agregarFavoritos(this.props.id)}>Agregar a favoritos</button>
-                }
+                {this.state.esFavorito ? (
+                    <button onClick={() => this.quitarFavoritos(this.props.id)} className="article-button">
+                        Quitar de favoritos
+                    </button>
+                ) : (
+                    <button onClick={() => this.agregarFavoritos(this.props.id)} className="article-button">
+                        Agregar a favoritos
+                    </button>
+                )}
             </article>
         )
     }
