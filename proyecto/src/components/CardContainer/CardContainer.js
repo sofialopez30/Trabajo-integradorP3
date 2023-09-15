@@ -6,9 +6,10 @@ export default function CardContainer(props) {
       <div>
         {props.album
           ? props.value.map((album, i) => (
-              <div className='tarjeta-container' key={album.id + i}>
+              <div className='tarjeta-container' key={album.id + i} >
                 <div className='white-box'>
                   <Tarjeta
+                    key={album.id + i}
                     className='cancion'
                     id={album.id}
                     imagen={album.cover}
@@ -21,11 +22,12 @@ export default function CardContainer(props) {
               </div>
             ))
           : props.value.map((song, i) => (
-              <div className='tarjeta-container' key={song.id + i}>
+              <div className='tarjeta-container'  key={song.id + i}>
                 <div className='white-box'>
                   <Tarjeta
                     className='cancion'
-                    id={song.id}
+                    
+                    id={song.id + i}
                     imagen={song.album.cover}
                     titulo={song.title}
                     artista={song.artist.name}

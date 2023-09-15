@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import Header from '../../components/Header/Header';
 import CardContainer from '../../components/CardContainer/CardContainer';
 import Footer from '../../components/Footer/Footer';
+import Fomulario from '../../components/Fomulario/Formulario'
 
 class Favoritos extends Component {
   constructor(props) {
@@ -16,7 +17,7 @@ class Favoritos extends Component {
   }
 
   componentDidMount() {
-    // aca estoy obteniendo los favoritos almacenados en el almacenamiento local
+    // aca estoy obteniendo los favoritos almacenados en el localestorage
     let favoritosStringCancion = localStorage.getItem("cancion")
     let favoritosArrayCancion = JSON.parse(favoritosStringCancion)
 
@@ -32,26 +33,26 @@ class Favoritos extends Component {
     }
 
     favoritosArrayCancion.map((id) => {
-      fetch("https://thingproxy.freeboard.io/fetch/https://api.deezer.com/track/" + id)
+      return fetch("https://thingproxy.freeboard.io/fetch/https://api.deezer.com/track/" + id)
         .then((response) => response.json())
         .then((datos) => {
           this.setState({
             songs: this.state.songs.concat(datos)
-          })
+          });
         })
         .catch(error => console.log(error));
-    })
+    });
 
     favoritosArrayAlbum.map((id) => {
-      fetch("https://thingproxy.freeboard.io/fetch/https://api.deezer.com/album/" + id)
+      return fetch("https://thingproxy.freeboard.io/fetch/https://api.deezer.com/album/" + id)
         .then((response) => response.json())
         .then((datos) => {
           this.setState({
             albums: this.state.albums.concat(datos)
-          })
+          });
         })
         .catch(error => console.log(error));
-    })
+    });
 
   }
 
@@ -60,13 +61,14 @@ class Favoritos extends Component {
     return (
       <>
         <Header />
+        <Fomulario />
         <div>
           <h1>Tus Favoritos</h1>
           <section>
             <h3>Canciones Favoritas</h3>
             <div className='tarjetas-container'>
               {this.state.songs.length === 0 ? (
-                <h3>No tienes canciones favoritas</h3>
+                <h3>Loading...</h3>
               ) : (
                 <div className='tarjetas-scroll'>
                   <CardContainer value={this.state.songs} album={false} />
@@ -79,7 +81,7 @@ class Favoritos extends Component {
             <h3>Albumes Favoritos</h3>
             <div>
               {this.state.albums.length === 0 ? (
-                <h3>No tienes álbumes favoritos</h3>
+                <h3>Loading...</h3>
               ) : (
                 <div className='tarjetas-scroll'>
                   <CardContainer value={this.state.albums} album={true} />

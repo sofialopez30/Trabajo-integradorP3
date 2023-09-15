@@ -8,8 +8,8 @@ class Search extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      search: "", // Estado para almacenar el término de búsqueda
-      resultados: [] // Estado para almacenar los resultados de la búsqueda
+      search: "", 
+      resultados: []
     };
   }
 

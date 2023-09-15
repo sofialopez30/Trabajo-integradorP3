@@ -30,7 +30,7 @@
   }
   .tarjeta-container:hover {
     transform: scale(1.05); /* Aumentar el tamaño en un 5% cuando se pasa el mouse */
-    box-shadow: 20px 30px 30px rgba(156, 10, 234, 0.905); /* Agregar una sombra cuando se pasa el mouse */
+    box-shadow: 20px 30px 30px rgba(48, 16, 206, 0.905); /* Agregar una sombra cuando se pasa el mouse */
   }
   
   .white-box {
@@ -53,6 +53,9 @@
   .tarjetas-container::-webkit-scrollbar-thumb:hover {
     background: rgba(28, 50, 122, 0.4); /* Color del scrollbar cuando se pasa el mouse por encima */
   }
-
+.vertodas-link{
+  margin-left: 70px;
+  margin-top: 40px;
+}
 
 

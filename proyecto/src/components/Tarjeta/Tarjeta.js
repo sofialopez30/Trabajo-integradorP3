@@ -50,7 +50,6 @@ class Tarjeta extends Component {
 
         let favoritosString = localStorage.getItem(this.props.tipo)
         let favoritosArray = JSON.parse(favoritosString)
-        // if (!favoritosArray.includes(id)) {
         if (favoritosArray === null) {
             favoritosArray = [id]
             let favoritosStringNuevo = JSON.stringify(favoritosArray)
@@ -66,8 +65,6 @@ class Tarjeta extends Component {
     }
 
     quitarFavoritos(id) {
-
-        // if (this.state.favoritos.includes(id)) {
             let favoritosString = localStorage.getItem(this.props.tipo)
             let favoritosArray = JSON.parse(favoritosString)
 
@@ -80,15 +77,11 @@ class Tarjeta extends Component {
                 let favoritosStringNuevo = JSON.stringify(favsFiltrado)
                 localStorage.setItem(this.props.tipo, favoritosStringNuevo)
             }
-
-            // let index = favoritosArray.indexOf(id)
-            // favoritosArray.splice(index, 1)
-            
+       
             this.setState({
                 esFavorito: false
             })
     
-        // }
 
     }
 
@@ -110,11 +103,11 @@ class Tarjeta extends Component {
                         {this.props.duration !== null ? (
                             <>
                                 <p>Duración: {this.props.duration}</p>
-                                <p>Ranking: {this.props.ranking}</p>
-                                <p>Explicit lyrics: {this.props.explicit_lyrics}</p>
+                                <p>Ranking: {this.props.rank}</p>
+                                <p></p>
                             </>
                         ) : (
-                            <p>Explicit lyrics: {this.props.explicit_lyrics}</p>
+                            <p></p>
                         )}
                     </>
                 ) : null}

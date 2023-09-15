@@ -2,15 +2,33 @@
     display: flex;
     justify-content: center;
     align-items: center;
-    height: 100px; /* Ajusta la altura según tus necesidades */
+    height: 100px;
     margin-bottom: 50px;
-  }
-  
-  /* Estilos para el contenedor de tarjetas */
-  .card-container {
+}
+
+/* Estilos para el contenedor de tarjetas */
+.cajas {
     display: flex;
-    flex-direction: column; /* Los elementos estarán uno debajo del otro */
-    align-items: center; /* Centrar elementos horizontalmente */
-    text-align: center; /* Centrar el texto horizontalmente */
-    margin-bottom: 50px
+    flex-direction: column;
+    /* Los elementos estarán uno debajo del otro */
+    /* align-items: center; */
+    /* Centrar elementos horizontalmente */
+    text-align: center;
+    /* Centrar el texto horizontalmente */
+    margin: 50px;
+}
+.search-button2{
+    padding: 10px 20px;
+    background-color: #1559a2; /* Color de fondo del botÃ³n */
+    color: white; /* Color del texto del botÃ³n */
+    border: none;
+    border-radius: 15px;
+    font-size: 16px;
+    cursor: pointer;
+    transition: background-color 0.3s; /* Efecto de transiciÃ³n al pasar el mouse */
+    font-family: 'Unbounded', sans-serif;
+    margin-left: 630px;
+}
+.search-button2:hover {
+    background-color: #0056b3; /* Color de fondo azul más oscuro al pasar el cursor */
   }

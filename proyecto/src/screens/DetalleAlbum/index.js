@@ -28,61 +28,50 @@ class DetalleAlbum extends Component {
         if (favoritosArrayAlbum === null) {
             favoritosArrayAlbum = []
         } else {
-            if (favoritosArrayAlbum.includes(parseInt(this.props.match.params.id))) {
-                this.setState({
-                    esFavorito: true
-                })
-            }
             this.setState({
                 favoritosAlbumes: favoritosArrayAlbum
             })
         }
     }
     agregarFavoritos(id) {
+        let favoritosArray= this.state.favoritosAlbumes
+        if (!favoritosArray.includes(id)) {
+            favoritosArray.push(id);
 
-        let favoritosString = localStorage.getItem(this.props.tipo)
-        let favoritosArray = JSON.parse(favoritosString)
-        // if (!favoritosArray.includes(id)) {
-        if (favoritosArray === null) {
-            favoritosArray = [id]
-            let favoritosStringNuevo = JSON.stringify(favoritosArray)
-            localStorage.setItem(this.props.tipo, favoritosStringNuevo)
-        } else {
-            favoritosArray.push(id)
-            let favoritosStringNuevo = JSON.stringify(favoritosArray)
-            localStorage.setItem(this.props.tipo, favoritosStringNuevo)
+            this.setState({
+                favoritosAlbumes: favoritosArray,
+                esFavorito: true
+            }, ()=>{
+                localStorage.setItem('album', JSON.stringify(favoritosArray));
+            });
+
         }
-        this.setState({
-            esFavorito: true
-        })
     }
+
+    //HAGO RESUMEN PARA NO MEZCLARME CON TODO
+    //obtengo una copia del array de favs de álbumes actual desde el estado del componente. Verifico si el elemento con el id que busco
+    // no está ya presente en la lista de favoritos. La condición !favoritosArray.includes(id) comprueba si el id no esta en la lista.
+    // Si el id no estaba en la lista de favoritos, se agrega a favoritosArray con el push. Se actualiza la lista con el elemento incluido
+    //Actualizco el estado con el nuevo id. Hago un callback donde se guarda en el estado del nav con 'album' y lo paso a string para gaurdarlo. 
+    // ACORDAR DE DESPUES PASARLO A INT LOS ARRAYS EN EL NAV SE VE EN INTS. HAY QUE PARSEARLO
 
     quitarFavoritos(id) {
+        let favoritosArray= this.state.favoritosAlbumes;
+        let favsFiltrado = favoritosArray.filter((elm) => id !== elm);
 
-        // if (this.state.favoritos.includes(id)) {
-            let favoritosString = localStorage.getItem(this.props.tipo)
-            let favoritosArray = JSON.parse(favoritosString)
-
-            if (favoritosArray === null) {
-                favoritosArray = []
-                let favoritosStringNuevo = JSON.stringify(favoritosArray)
-                localStorage.setItem(this.props.tipo, favoritosStringNuevo)
-            } else {
-                let favsFiltrado = favoritosArray.filter((elm) => id !== elm)
-                let favoritosStringNuevo = JSON.stringify(favsFiltrado)
-                localStorage.setItem(this.props.tipo, favoritosStringNuevo)
-            }
-
-            // let index = favoritosArray.indexOf(id)
-            // favoritosArray.splice(index, 1)
-            
-            this.setState({
-                esFavorito: false
-            })
-    
-        // }
-
+        this.setState({
+            favoritosAlbumes:favsFiltrado,
+            esFavorito: false
+        }, ()=>{
+            localStorage.setItem('album', JSON.stringify(favsFiltrado));
+        });
+        
     }
+    // HAGO UN RESUMEN DE QUE HACE PARA NO MEZCLARME
+    // obtengo una copia del array de favs desde el estado del componente. Con el filter creo un nuevo array donde voy a exluir el 
+    //elemento con el id en especifico y se elimina. Despues actualizo el estado donde pongo a favoritosCanciones como nuevo array y 
+    //ahi se elimina de la lista de favs. Despues de guardar en el local Storage, hago un callback donde paso a string xq el nav no puede verlo sino y se guarda.
+
 
     render() {
         return (
@@ -92,21 +81,31 @@ class DetalleAlbum extends Component {
 
                 {
                     this.state.album !== "" ?
-                    <section>
+                    <section className="detalle">
                         <img src={this.state.album.cover} alt={this.state.album.title} />
-                        <h2>{this.state.album.title}</h2>
-                        <p>Artista: {this.state.album.artist.name}</p>
-                        <p>Nombre del disco: {this.state.album.title}</p>
-                        <p>Listado de canciones:</p>
-                        {this.state.album.tracks.data.map((cancion, i) => (
-                            <div key={cancion + i}>
-                                <ul ><li >{cancion.title}</li></ul>
-                            </div>
-                        ))}
+                        <h2 className="nombre">{this.state.album.title}</h2>
+                        <div className="">
+                            <p>Artista: {this.state.album.artist.name}</p>
+                            <p>Nombre del disco: {this.state.album.title}</p>
+                            <p>Genero: {this.state.album.genres.data[0].name}</p>
+                            <p>Publicación: {this.state.album.release_date}</p>
+
+                        </div>
+
+                            <p className="nombre">Listado de canciones:</p>
+                        
+                                <ul className="song-list">
+                                    {this.state.album.tracks.data.map((cancion, i) => (
+                                        <li key={cancion + i}>{cancion.title}</li>
+                                    ))}
+                                </ul>
+
+                
+                            
                         {
                             this.state.esFavorito ?
-                            <button onClick={() => this.quitarFavoritos(this.props.id, "album")}>Quitar de favoritos</button> :
-                            <button onClick={() => this.agregarFavoritos(this.props.id, "album")}>Agregar a favoritos</button>
+                            <button className="search-button" onClick={() => this.quitarFavoritos(parseInt(this.props.match.params.id))}>Quitar de favoritos</button> :
+                            <button className="search-button" onClick={() => this.agregarFavoritos(parseInt(this.props.match.params.id))}>Agregar a favoritos</button>
                         }
                     </section> :
                     <h2>Loading...</h2>

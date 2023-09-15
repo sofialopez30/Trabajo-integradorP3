@@ -2,6 +2,8 @@ import React, { Component } from "react";
 import Footer from "../../components/Footer/Footer";
 import Header from "../../components/Header/Header";
 import Fomulario from '../../components/Fomulario/Formulario'
+import './styles.css'
+
 
 class DetalleCanciones extends Component {
     constructor(props) {
@@ -12,6 +14,7 @@ class DetalleCanciones extends Component {
             esFavorito: false
         }
     }
+
 
     componentDidMount() {
         fetch(`https://thingproxy.freeboard.io/fetch/https://api.deezer.com/track/${this.props.match.params.id}`)
@@ -29,11 +32,6 @@ class DetalleCanciones extends Component {
         if (favoritosArrayCancion === null) {
             favoritosArrayCancion = []
         } else {
-            if (favoritosArrayCancion.includes(parseInt(this.props.match.params.id))) {
-                this.setState({
-                    esFavorito: true
-                })
-            }
             this.setState({
                 favoritosCanciones: favoritosArrayCancion
             })
@@ -41,50 +39,32 @@ class DetalleCanciones extends Component {
     }
 
     agregarFavoritos(id) {
-
-        let favoritosString = localStorage.getItem(this.props.tipo)
-        let favoritosArray = JSON.parse(favoritosString)
-        // if (!favoritosArray.includes(id)) {
-        if (favoritosArray === null) {
-            favoritosArray = [id]
-            let favoritosStringNuevo = JSON.stringify(favoritosArray)
-            localStorage.setItem(this.props.tipo, favoritosStringNuevo)
-        } else {
-            favoritosArray.push(id)
-            let favoritosStringNuevo = JSON.stringify(favoritosArray)
-            localStorage.setItem(this.props.tipo, favoritosStringNuevo)
+        let favoritosArray = this.state.favoritosCanciones; 
+        if (!favoritosArray.includes(id)) {
+            favoritosArray.push(id); 
+            this.setState({
+                favoritosCanciones: favoritosArray,
+                esFavorito: true
+            }, () => {
+                localStorage.setItem("cancion", JSON.stringify(favoritosArray));
+            });
         }
-        this.setState({
-            esFavorito: true
-        })
     }
 
     quitarFavoritos(id) {
-
-        // if (this.state.favoritos.includes(id)) {
-        let favoritosString = localStorage.getItem(this.props.tipo)
-        let favoritosArray = JSON.parse(favoritosString)
-
-        if (favoritosArray === null) {
-            favoritosArray = []
-            let favoritosStringNuevo = JSON.stringify(favoritosArray)
-            localStorage.setItem(this.props.tipo, favoritosStringNuevo)
-        } else {
-            let favsFiltrado = favoritosArray.filter((elm) => id !== elm)
-            let favoritosStringNuevo = JSON.stringify(favsFiltrado)
-            localStorage.setItem(this.props.tipo, favoritosStringNuevo)
-        }
-
-        // let index = favoritosArray.indexOf(id)
-        // favoritosArray.splice(index, 1)
-
+        let favoritosArray = this.state.favoritosCanciones; 
+        let favsFiltrado = favoritosArray.filter((elm) => id !== elm); 
         this.setState({
+            favoritosCanciones: favsFiltrado, 
             esFavorito: false
-        })
-
-        // }
-
+        }, () => {
+            localStorage.setItem("cancion", JSON.stringify(favsFiltrado));  
+        });
     }
+    // HAGO UN RESUMEN DE QUE HACE PARA NO MEZCLARME
+    // obtengo una copia del array de favs desde el estado del componente. Con el filter creo un nuevo array donde voy a exluir el 
+    //elemento con el id en especifico y se elimina. Despues actualizo el estado donde pongo a favoritosCanciones como nuevo array y 
+    //ahi se elimina de la lista de favs. Despues de guardar en el local Storage, hago un callback donde paso a string xq el nav no puede verlo sino y se guarda.
 
 
     render() {
@@ -93,18 +73,21 @@ class DetalleCanciones extends Component {
                 <Header />
                 <Fomulario />
                 {this.state.songs !== '' ?
-                    <section>
+                    <section className="detalle">
                         <img src={this.state.songs.album.cover_medium} alt={this.state.songs.title} />
-                        <h2>{this.state.songs.title}</h2>
-                        <p>Artista: {this.state.songs.artist.name}</p>
-                        <p>Nombre del disco: {this.state.songs.album.title}</p>
+                        <h2 className="nombre">{this.state.songs.title}</h2>
+                        <div className="art-nom">
+                            <p>Artista: {this.state.songs.artist.name}</p>
+                            <p>Nombre del disco: {this.state.songs.album.title}</p>
+                        </div>
+
                         <audio controls>
                             <source src={this.state.songs.preview} />
                         </audio>
                         {
                             this.state.esFavorito ?
-                                <button onClick={() => this.quitarFavoritos(this.props.id, "cancion")}>Quitar de favoritos</button> :
-                                <button onClick={() => this.agregarFavoritos(this.props.id, "cancion")}>Agregar a favoritos</button>
+                                <button className="search-button" onClick={() => this.quitarFavoritos(parseInt(this.props.match.params.id))}>Quitar de favoritos</button> :
+                                <button className="search-button" onClick={() => this.agregarFavoritos(parseInt(this.props.match.params.id))}>Agregar a favoritos</button>
                         }
                     </section> :
                     <h2> Loading...</h2>
