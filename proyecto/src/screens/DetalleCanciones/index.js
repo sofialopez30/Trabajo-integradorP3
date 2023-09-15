@@ -8,8 +8,8 @@ class DetalleCanciones extends Component {
         super(props);
         this.state = {
             songs: '',
-            favoritosCanciones:[]
-        
+            favoritosCanciones: [],
+            esFavorito: false
         }
     }
 
@@ -22,69 +22,76 @@ class DetalleCanciones extends Component {
                 }))
             .catch(error => console.log(error));
 
-            let favoritosStringAlbum = localStorage.getItem(this.props.tipo)
-            let favoritosArrayAlbum = JSON.parse(favoritosStringAlbum)
-    
-            if (favoritosArrayAlbum === null) {
-                favoritosArrayAlbum = []
-            } else {
+        let favoritosStringCancion = localStorage.getItem("cancion")
+        
+        let favoritosArrayCancion = JSON.parse(favoritosStringCancion)
+
+        if (favoritosArrayCancion === null) {
+            favoritosArrayCancion = []
+        } else {
+            if (favoritosArrayCancion.includes(parseInt(this.props.match.params.id))) {
                 this.setState({
-                    favoritosAlbumes: favoritosArrayAlbum
+                    esFavorito: true
                 })
-            }
-        }
-        agregarFavoritos(id) {
-    
-            let favoritosString = localStorage.getItem(this.props.tipo)
-            let favoritosArray = JSON.parse(favoritosString)
-            // if (!favoritosArray.includes(id)) {
-            if (favoritosArray === null) {
-                favoritosArray = [id]
-                let favoritosStringNuevo = JSON.stringify(favoritosArray)
-                localStorage.setItem(this.props.tipo, favoritosStringNuevo)
-            } else {
-                favoritosArray.push(id)
-                let favoritosStringNuevo = JSON.stringify(favoritosArray)
-                localStorage.setItem(this.props.tipo, favoritosStringNuevo)
             }
             this.setState({
-                esFavorito: true
+                favoritosCanciones: favoritosArrayCancion
             })
         }
-    
-        quitarFavoritos(id) {
-    
-            // if (this.state.favoritos.includes(id)) {
-                let favoritosString = localStorage.getItem(this.props.tipo)
-                let favoritosArray = JSON.parse(favoritosString)
-    
-                if (favoritosArray === null) {
-                    favoritosArray = []
-                    let favoritosStringNuevo = JSON.stringify(favoritosArray)
-                    localStorage.setItem(this.props.tipo, favoritosStringNuevo)
-                } else {
-                    let favsFiltrado = favoritosArray.filter((elm) => id !== elm)
-                    let favoritosStringNuevo = JSON.stringify(favsFiltrado)
-                    localStorage.setItem(this.props.tipo, favoritosStringNuevo)
-                }
-    
-                // let index = favoritosArray.indexOf(id)
-                // favoritosArray.splice(index, 1)
-                
-                this.setState({
-                    esFavorito: false
-                })
-        
-            // }
-    
+    }
+
+    agregarFavoritos(id) {
+
+        let favoritosString = localStorage.getItem(this.props.tipo)
+        let favoritosArray = JSON.parse(favoritosString)
+        // if (!favoritosArray.includes(id)) {
+        if (favoritosArray === null) {
+            favoritosArray = [id]
+            let favoritosStringNuevo = JSON.stringify(favoritosArray)
+            localStorage.setItem(this.props.tipo, favoritosStringNuevo)
+        } else {
+            favoritosArray.push(id)
+            let favoritosStringNuevo = JSON.stringify(favoritosArray)
+            localStorage.setItem(this.props.tipo, favoritosStringNuevo)
         }
-    
-    
+        this.setState({
+            esFavorito: true
+        })
+    }
+
+    quitarFavoritos(id) {
+
+        // if (this.state.favoritos.includes(id)) {
+        let favoritosString = localStorage.getItem(this.props.tipo)
+        let favoritosArray = JSON.parse(favoritosString)
+
+        if (favoritosArray === null) {
+            favoritosArray = []
+            let favoritosStringNuevo = JSON.stringify(favoritosArray)
+            localStorage.setItem(this.props.tipo, favoritosStringNuevo)
+        } else {
+            let favsFiltrado = favoritosArray.filter((elm) => id !== elm)
+            let favoritosStringNuevo = JSON.stringify(favsFiltrado)
+            localStorage.setItem(this.props.tipo, favoritosStringNuevo)
+        }
+
+        // let index = favoritosArray.indexOf(id)
+        // favoritosArray.splice(index, 1)
+
+        this.setState({
+            esFavorito: false
+        })
+
+        // }
+
+    }
+
+
     render() {
         return (
             <>
-            <Header/>
-            <Fomulario/>
+                <Header />
+                <Fomulario />
                 {this.state.songs !== '' ?
                     <section>
                         <img src={this.state.songs.album.cover_medium} alt={this.state.songs.title} />
@@ -95,14 +102,13 @@ class DetalleCanciones extends Component {
                             <source src={this.state.songs.preview} />
                         </audio>
                         {
-                            this.state.favoritosCanciones.includes(this.props.id) ?
-                            <button onClick={() => this.quitarFavoritos(this.props.id, "cancion")}>Quitar de favoritos</button> :
-                            <button onClick={() => this.agregarFavoritos(this.props.id, "cancion")}>Agregar a favoritos</button>
+                            this.state.esFavorito ?
+                                <button onClick={() => this.quitarFavoritos(this.props.id, "cancion")}>Quitar de favoritos</button> :
+                                <button onClick={() => this.agregarFavoritos(this.props.id, "cancion")}>Agregar a favoritos</button>
                         }
-
-                    </section> : 
+                    </section> :
                     <h2> Loading...</h2>
-                    
+
                 }
                 <Footer />
             </>

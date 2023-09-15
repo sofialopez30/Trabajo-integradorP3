@@ -13,7 +13,7 @@ export default function CardContainer(props) {
                     id={album.id}
                     imagen={album.cover}
                     titulo={album.title}
-                    // artista={album.artist.name}
+                    artista={album.artist.name}
                     // explicit_lyrics={album.explicit_lyrics.toString()}
                     tipo='album'
                   />

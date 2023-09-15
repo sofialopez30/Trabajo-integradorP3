@@ -22,12 +22,17 @@ class DetalleAlbum extends Component {
                 }))
             .catch(error => console.log(error));
 
-        let favoritosStringAlbum = localStorage.getItem(this.props.tipo)
+        let favoritosStringAlbum = localStorage.getItem('album')
         let favoritosArrayAlbum = JSON.parse(favoritosStringAlbum)
 
         if (favoritosArrayAlbum === null) {
             favoritosArrayAlbum = []
         } else {
+            if (favoritosArrayAlbum.includes(parseInt(this.props.match.params.id))) {
+                this.setState({
+                    esFavorito: true
+                })
+            }
             this.setState({
                 favoritosAlbumes: favoritosArrayAlbum
             })
@@ -99,12 +104,12 @@ class DetalleAlbum extends Component {
                             </div>
                         ))}
                         {
-                            this.state.favoritosAlbumes.includes(this.props.id) ?
+                            this.state.esFavorito ?
                             <button onClick={() => this.quitarFavoritos(this.props.id, "album")}>Quitar de favoritos</button> :
                             <button onClick={() => this.agregarFavoritos(this.props.id, "album")}>Agregar a favoritos</button>
                         }
                     </section> :
-                    <h2>Cargando...</h2>
+                    <h2>Loading...</h2>
                 }
                 <Footer />
 

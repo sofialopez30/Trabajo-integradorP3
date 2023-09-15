@@ -21,6 +21,11 @@ class Tarjeta extends Component {
         if (favoritosArray === null) {
             favoritosArray = []
         } else {
+            if (favoritosArray.includes(this.props.id)) {
+                this.setState({
+                    esFavorito: true
+                })
+            }
             this.setState({
                 favoritos: favoritosArray
             })
