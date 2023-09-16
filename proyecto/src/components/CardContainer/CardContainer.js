@@ -27,7 +27,7 @@ export default function CardContainer(props) {
                   <Tarjeta
                     className='cancion'
                     
-                    id={song.id + i}
+                    id={song.id}
                     imagen={song.album.cover}
                     titulo={song.title}
                     artista={song.artist.name}
