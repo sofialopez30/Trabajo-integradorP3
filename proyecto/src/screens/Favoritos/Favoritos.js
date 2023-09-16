@@ -3,6 +3,7 @@ import Header from '../../components/Header/Header';
 import CardContainer from '../../components/CardContainer/CardContainer';
 import Footer from '../../components/Footer/Footer';
 import Fomulario from '../../components/Fomulario/Formulario'
+import './styles.css'
 
 class Favoritos extends Component {
   constructor(props) {
@@ -63,9 +64,9 @@ class Favoritos extends Component {
         <Header />
         <Fomulario />
         <div>
-          <h1>Tus Favoritos</h1>
+          <h1 className= 'titulo'>Tus Favoritos</h1>
           <section>
-            <h3>Canciones Favoritas</h3>
+            <h3 className= 'titulo' >Canciones Favoritas </h3>
             <div className='tarjetas-container'>
               {this.state.songs.length === 0 ? (
                 <h3>Loading...</h3>
@@ -78,7 +79,7 @@ class Favoritos extends Component {
           </section>
 
           <section>
-            <h3>Albumes Favoritos</h3>
+            <h3 className= 'titulo' >Albumes Favoritos</h3>
             <div>
               {this.state.albums.length === 0 ? (
                 <h3>Loading...</h3>
