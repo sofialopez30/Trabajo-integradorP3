@@ -58,11 +58,11 @@ export default class VerAlbums extends Component {
                     arrayAlbums.push(data.data[i]);
                 }
 
-                let albumsNuevas = this.state.albums.slice(); // Crear una copia del array actual
+                let albumsNuevas = this.state.albums.slice();
                 albumsNuevas = albumsNuevas.concat(arrayAlbums);
 
                 this.setState({
-                    albums: albumsNuevas, // Actualizar el estado con la copia modificada
+                    albums: albumsNuevas,
                     cantidad: this.state.cantidad + 15,
                 });
                 this.setState({

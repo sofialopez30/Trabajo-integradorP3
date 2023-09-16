@@ -13,11 +13,8 @@
 
 .nombre {
     font-size: 24px;
-    /* Tamaño de fuente grande */
     font-weight: bold;
-    /* Texto en negrita */
     margin-bottom: 10px;
-    /* Espacio entre el nombre de la canción y la canción */
     margin: 30px;
     font-family: 'Unbounded', sans-serif;
 }

@@ -16,24 +16,18 @@ button {
 
 .article {
     text-align: center;
-    /* Centra el contenido en el artículo */
 }
 
 .article-image {
     display: block;
-    /* Elimina el espacio adicional debajo de la imagen */
     margin: 0 auto;
-    /* Centra la imagen horizontalmente */
     max-width: 500px;
-    /* Aumenta el ancho máximo de la imagen (ajusta según tus necesidades) */
     height: auto;
-    /* Mantiene la relación de aspecto de la imagen */
 }
 
 .article-title,
 .article-artist {
     margin: 10px 0;
-    /* Agrega espacio alrededor del nombre del artista y de la canción */
     font-family: 'Unbounded', sans-serif;
 }
 
@@ -41,7 +35,6 @@ button {
 
 .article-description {
     font-weight: bold;
-    /* Estilo para la descripción */
     font-family: 'Unbounded', sans-serif;
 
 }
@@ -49,21 +42,14 @@ button {
 .article-button {
     font-family: 'Unbounded', sans-serif;
     background-color: #007bff;
-    /* Color de fondo predeterminado para los botones */
     color: white;
-    /* Color de texto predeterminado para los botones */
     border: none;
-    /* Elimina el borde de los botones */
     padding: 10px 20px;
-    /* Espaciado interno de los botones */
     cursor: pointer;
-    /* Cambia el cursor al pasar el mouse por encima */
     transition: background-color 0.3s, transform 0.3s;
 }
 
 .article-button:hover {
     background-color: #0056b3;
-    /* Cambia el color de fondo al pasar el mouse */
     transform: scale(1.1);
-    /* Aumenta el tamaño al pasar el mouse */
 }

@@ -15,16 +15,16 @@
 
 .search-button {
     padding: 10px 20px;
-    background-color: #1559a2; /* Color de fondo del botÃ³n */
-    color: white; /* Color del texto del botÃ³n */
+    background-color: #1559a2;
+    color: white;
     border: none;
     border-radius: 15px;
     font-size: 16px;
     cursor: pointer;
-    transition: background-color 0.3s; /* Efecto de transiciÃ³n al pasar el mouse */
+    transition: background-color 0.3s;
     font-family: 'Unbounded', sans-serif;
   }
 
 .search-button:hover {
-    background-color: #4b80b8; /* Nuevo color de fondo al pasar el mouse */
+    background-color: #4b80b8;
 }
